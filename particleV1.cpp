@@ -14,9 +14,9 @@ class Ball {
 private:
 
 public:
-	sf::CircleShape shape;
-	float radius;
-	float position;
+    sf::CircleShape shape;
+    float radius;
+    float position;
     float angle;
     float xvelocity;
     float yvelocity;
@@ -30,19 +30,19 @@ public:
     }
 
     void set_velocity(float x, float y) {
-		xvelocity = x;
-		yvelocity = y;
-	}
+        xvelocity = x;
+        yvelocity = y;
+    }
 
     void update_position() {
-		shape.move(xvelocity, yvelocity);
-		// Update position
-    }   
+        shape.move(xvelocity, yvelocity);
+        // Update position
+    }
 
     void set_speed_and_direction(float magnitude, float degrees, float scale) {
         angle = degrees;
-		calculate_velocity(magnitude, scale);
-	}
+        calculate_velocity(magnitude, scale);
+    }
 
 };
 
@@ -60,10 +60,12 @@ int main() {
         ball.setPosition(rand() % width, rand() % height);
         particle.shape = ball;
         balls.push_back(particle);
-	}
+    }
+
+    int speedscale = 100; // adjusts the speed so it's 1/speedscale (otherwise it's wayyy to fast)
     for (auto& ball : balls) {
-		ball.set_speed_and_direction((rand() % 10 + 5), rand() % 360, 30);
-	}
+        ball.set_speed_and_direction((rand() % 10 + 5), rand() % 360, speedscale);
+    }
     sf::RenderWindow window(sf::VideoMode(width, height), "My window");
     // Main loop
     while (window.isOpen()) {
@@ -80,7 +82,7 @@ int main() {
             ball.update_position();
 
             if (ball.shape.getPosition().x < 0 || ball.shape.getPosition().x > width - ball.shape.getRadius() * 2) {
-				ball.xvelocity *= -1;
+                ball.xvelocity *= -1;
             }
             if (ball.shape.getPosition().y < 0 || ball.shape.getPosition().y > height - ball.shape.getRadius() * 2) {
                 ball.yvelocity *= -1;
